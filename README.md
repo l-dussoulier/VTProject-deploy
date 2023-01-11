@@ -11,4 +11,5 @@ This project intends to create a reliable solution to get trends data on specifi
 - **Development Framework** -
 - **VPS** -
 - **WebMethods.io (iPaaS)** -
+- **Firebase** -
 
