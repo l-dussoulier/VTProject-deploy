@@ -1,0 +1,39 @@
+{
+  "name": "vtproject",
+  "version": "1.0.0",
+  "description": "## Context",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts",
+    "build": "tsc --project . && ts-node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GAUTIER-Arthur/VTProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GAUTIER-Arthur/VTProject/issues"
+  },
+  "homepage": "https://github.com/GAUTIER-Arthur/VTProject#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase": "^9.15.0",
+    "assert": "^2.0.0",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "firebase-admin": "^11.3.0",
+    "fs": "^0.0.1-security",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "nodemon": "^2.0.20"
+
+  }
+}
