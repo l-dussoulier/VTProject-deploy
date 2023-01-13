@@ -7,9 +7,16 @@ This project intends to create a reliable solution to get trends data on specifi
 ## Technologies
 
 - **Github** - 
-- **Node JS** -
+- **Node JS (TS)** -
 - **Development Framework** -
 - **VPS** -
 - **WebMethods.io (iPaaS)** -
 - **Firebase** -
 
+
+## 
+
+Running app 
+
+- npm install 
+- npm start
