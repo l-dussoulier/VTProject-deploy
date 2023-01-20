@@ -24,9 +24,11 @@ twitterRouter.get('/getTweetById', async (req, res) => {
 });
 
 twitterRouter.get('/allTweet', async (req, res) => {
+    console.log("1");
     const twitterController = await TwitterController.getInstance();
+    console.log(twitterController);
     const tweet = await twitterController.getAllTweet();
-
+    console.log(tweet);
     if (tweet !== null) {
         res.status(200).json(tweet);
     } else {

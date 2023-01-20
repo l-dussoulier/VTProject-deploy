@@ -48,7 +48,7 @@ export class DatabaseManager {
         const managerProps: DatabaseManagerProps = {
             firestore: db,
             user: db.collection('users'),
-            twitter: db.collection('twitter'),
+            twitter: db.collection('twitters'),
 
         }
         return new DatabaseManager(managerProps);

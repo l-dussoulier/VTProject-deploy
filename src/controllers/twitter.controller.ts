@@ -1,5 +1,6 @@
 import { CollectionReference } from 'firebase-admin/firestore';
-import {TwitterDBProps} from '../models';
+import {DatabaseManager, TwitterDBProps} from '../models';
+import {twitterRouter} from "../routes/twitter.route";
 const request = require('request');
 
 export class TwitterController {
@@ -10,6 +11,10 @@ export class TwitterController {
     private static instance?: TwitterController;
 
     public static async getInstance(): Promise<TwitterController> {
+        if (TwitterController.instance === undefined) {
+            const { user, twitter } = await DatabaseManager.getInstance();
+            TwitterController.instance = new TwitterController(user, twitter);
+        }
         return TwitterController.instance;
     }
 
