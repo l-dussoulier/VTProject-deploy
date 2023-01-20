@@ -1,4 +1,4 @@
-export interface ITwitterProps {
+export interface TwitterDBProps {
     username: string,
     description: string,
     date: Date,

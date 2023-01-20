@@ -7,11 +7,11 @@ const userRouter = express.Router();
  * Get player information from his wallet address
  */
 userRouter.get('/allUsers', async (req, res) => {
-    const twitterController = await UserController.getInstance();
-    const tweet = await twitterController.getAllUsers();
+    const userController = await UserController.getInstance();
+    const users = await userController.getAllUsers();
 
-    if (tweet !== null) {
-        res.status(200).json(tweet);
+    if (users !== null) {
+        res.status(200).json(users);
     } else {
         res.status(204).end();
     }

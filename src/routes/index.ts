@@ -1,7 +1,9 @@
 import { Express } from "express";
-import {twitterRouter} from "./player.route";
+import {twitterDBRouter} from "./twitterDB.route";
 import {userRouter} from "./user.route";
+import {twitterRouter} from "./twitter.route";
 export function buildRoutes(app: Express) {
-    app.use("/twitter", twitterRouter);
+    app.use("/twitterDB", twitterDBRouter);
     app.use("/user", userRouter);
+    app.use("/twitter", twitterRouter);
 }
