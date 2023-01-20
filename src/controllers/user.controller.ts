@@ -1,5 +1,5 @@
 import { CollectionReference } from 'firebase-admin/firestore';
-import { UserDatabaseManager } from '../models';
+import { DatabaseManager } from '../models';
 import { UserProps } from "../models";
 
 export class UserController {
@@ -10,8 +10,8 @@ export class UserController {
 
     public static async getInstance(): Promise<UserController> {
         if (UserController.instance === undefined) {
-            const { player } = await UserDatabaseManager.getInstance();
-            UserController.instance = new UserController(player);
+            const { user } = await DatabaseManager.getInstance();
+            UserController.instance = new UserController(user);
         }
         return UserController.instance;
     }

@@ -3,30 +3,32 @@ import { initializeApp } from 'firebase-admin/app';
 import admin from 'firebase-admin';
 import config from "../config";
 
-export interface UserDatabaseManagerProps {
+export interface DatabaseManagerProps {
     firestore: Firestore;
-    player: CollectionReference;
+    user: CollectionReference;
+    twitter: CollectionReference;
 }
 
-export class UserDatabaseManager {
+export class DatabaseManager {
 
-    private static instance?: UserDatabaseManager;
+    private static instance?: DatabaseManager;
 
     firestore: Firestore;
-    player: CollectionReference;
+    user: CollectionReference;
+    twitter: CollectionReference;
 
-    public static async getInstance(): Promise<UserDatabaseManager> {
-        if (UserDatabaseManager.instance === undefined) {
-            UserDatabaseManager.instance = await UserDatabaseManager.initialize();
+    public static async getInstance(): Promise<DatabaseManager> {
+        if (DatabaseManager.instance === undefined) {
+            DatabaseManager.instance = await DatabaseManager.initialize();
         }
-        return UserDatabaseManager.instance;
+        return DatabaseManager.instance;
     }
 
     /**
      * Initialize the Firestore Database
      * @returns Firestore object
      */
-    private static async initialize(): Promise<UserDatabaseManager> {
+    private static async initialize(): Promise<DatabaseManager> {
         const serviceAccount : any = {
             "type": config.firebaseConfig.type,
             "project_id": config.firebaseConfig.project_id,
@@ -42,18 +44,20 @@ export class UserDatabaseManager {
         const app = initializeApp({
             credential: admin.credential.cert(serviceAccount)
         });
-        const User_db = getFirestore(app);
-        const managerProps: UserDatabaseManagerProps = {
-            firestore: User_db,
-            player: User_db.collection('users'),
+        const db = getFirestore(app);
+        const managerProps: DatabaseManagerProps = {
+            firestore: db,
+            user: db.collection('users'),
+            twitter: db.collection('twitter'),
 
         }
-        return new UserDatabaseManager(managerProps);
+        return new DatabaseManager(managerProps);
     }
 
-    private constructor(props: UserDatabaseManagerProps) {
+    private constructor(props: DatabaseManagerProps) {
         this.firestore = props.firestore;
-        this.player = props.player;
+        this.user = props.user;
+        this.twitter = props.twitter;
     }
 
 }
