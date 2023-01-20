@@ -1,5 +1,6 @@
 import express from 'express';
 import { TwitterController } from "../controllers";
+import { UserController } from "../controllers";
 
 const twitterRouter = express.Router();
 const request = require('request');
@@ -28,6 +29,23 @@ twitterRouter.get('/allTweet', async (req, res) => {
 
     if (tweet !== null) {
         res.status(200).json(tweet);
+    } else {
+        res.status(204).end();
+    }
+});
+
+twitterRouter.get('/allUsersTweet', async (req, res) => {
+    const userController = await UserController.getInstance();
+    const users = await userController.getAllUsers();
+
+    if (users !== null) {
+        for(let x in users){
+            console.log("Id " + users[x].id)
+            const twitterController = await TwitterController.getInstance();
+            const tweet = await twitterController.getAllTweet();
+            console.log(tweet)
+        }
+        res.status(200).json(users);
     } else {
         res.status(204).end();
     }
