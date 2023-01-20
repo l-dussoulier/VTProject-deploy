@@ -1,6 +1,5 @@
 import { CollectionReference } from 'firebase-admin/firestore';
 import { TwitterProps } from '../models';
-
 const request = require('request');
 
 export class TwitterController {
@@ -19,11 +18,12 @@ export class TwitterController {
 
     /**
      * Update note tweet object in database.
+     * @param id
      * @returns
      */
-    public async getTweetFromUser() {
-        console.log("test")
-        /*request('https://api.twitter.com/2/users/'+id+'/tweets', async function (error, response, body) {
+    public async getTweetFromUser(id: string) {
+        console.log("test" + id)
+        await  request('https://api.twitter.com/2/users/'+id+'/tweets', async function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body)
                 let message = {"success":true,"status_code":response.statusCode,"content":body}
@@ -31,8 +31,7 @@ export class TwitterController {
             }else{
                 let message = {"success":false,"status_code":response.statusCode,"error_message":error.message}
                 return message
-            }}, { merge: true });*/
-        return "Yo"
+            }}, { merge: true });
     }
 
 }
