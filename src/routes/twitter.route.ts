@@ -9,7 +9,7 @@ const token = 'AAAAAAAAAAAAAAAAAAAAAHMylQEAAAAAC7%2Fgvyxuw23AFM6kvUdfRxzBUk4%3DH
 /**
  * Get player information from his wallet address
  */
-twitterRouter.get('/getTweetById', async (req, res) => {
+/*twitterRouter.get('/getTweetById', async (req, res) => {
     const id = req.body.accountId;
 
     //console.log(id)
@@ -21,7 +21,7 @@ twitterRouter.get('/getTweetById', async (req, res) => {
     } else {
         res.status(204).end();
     }
-});
+});*/
 
 twitterRouter.get('/allTweet', async (req, res) => {
     console.log("1");
@@ -44,8 +44,11 @@ twitterRouter.get('/allUsersTweet', async (req, res) => {
         for(let x in users){
             console.log("Id " + users[x].id)
             const twitterController = await TwitterController.getInstance();
-            const tweet = await twitterController.getAllTweet();
-            console.log(tweet)
+            const lastGetDate = await userController.getLastUpdateUser(users[x].id);
+            console.log("last get date" + lastGetDate)
+            //const tweet = await twitterController.getTweetFromUser(users[x].id,lastGetDate);
+            //console.log(tweet)
+            await userController.updateLastGetDate(users[x].id);
         }
         res.status(200).json(users);
     } else {

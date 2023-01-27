@@ -26,11 +26,12 @@ export class TwitterController {
     /**
      * Update note tweet object in database.
      * @param id
+     * @param timestamp
      * @returns
      */
-    public async getTweetFromUser(id: string) {
-        console.log("test" + id)
-        await  request('https://api.twitter.com/2/users/'+id+'/tweets', async function (error, response, body) {
+    public async getTweetFromUser(id: string, timestamp: string) {
+        //console.log("test" + id)
+        await  request('https://api.twitter.com/2/users/'+id+'/tweets?start_time='+timestamp, async function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body)
                 let message = {"success":true,"status_code":response.statusCode,"content":body}

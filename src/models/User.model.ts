@@ -1,5 +1,6 @@
 export interface UserProps {
     name: string,
     id: number,
-    date: Date
+    date: Date,
+    lastGetDate : string
 }
