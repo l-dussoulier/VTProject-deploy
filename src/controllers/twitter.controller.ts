@@ -39,8 +39,8 @@ export class TwitterController {
               "Authorization" : "Bearer AAAAAAAAAAAAAAAAAAAAAHMylQEAAAAAC7%2Fgvyxuw23AFM6kvUdfRxzBUk4%3DHB3q84a6Rl9kSPv07KKKlZpI1gCFlQG3IEBySOV8wTSxQa3Znr",
             }
         };
-
-        await request(options, async function (error, response, body) {         
+        const reference = this;
+        await request(options, async function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 let tweets = []
                 let json = JSON.parse(body);
@@ -48,12 +48,12 @@ export class TwitterController {
                     tweets.push({"id":json.data[x].id,"text" : json.data[x].text})
                         const username = id;
                         const description = json.data[x].text;
-                        const date = new Date().toISOString();
+                        const date = new Date();
                         const note = 100;
-                    await this.create({
+                    await reference.create({
                         username, description, date, note
                     });
-                }   
+                }
                 return {"success": true, "status_code": response.statusCode, "content": tweets}
             } else {
                 console.log("Empty");
@@ -67,7 +67,7 @@ export class TwitterController {
      * @param twitterPost
      * @returns
      */
-    public async create(twitterPost: TwitterDBProps) {
+    public async create (twitterPost: TwitterDBProps) {
         const twitterRef = this.twitter.doc();
         return await twitterRef.set({
             ...twitterPost
