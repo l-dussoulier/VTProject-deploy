@@ -1,6 +1,6 @@
-import { CollectionReference } from 'firebase-admin/firestore';
+import {CollectionReference} from 'firebase-admin/firestore';
 import {DatabaseManager, TwitterDBProps} from '../models';
-import {twitterRouter} from "../routes/twitter.route";
+
 const request = require('request');
 
 export class TwitterController {
@@ -23,23 +23,28 @@ export class TwitterController {
         this.twitter = Twitter;
     }
 
+
+
     /**
      * Update note tweet object in database.
      * @param id
      * @param timestamp
      * @returns
      */
-    public async getTweetFromUser(id: string, timestamp: string) {
-        //console.log("test" + id)
-        await  request('https://api.twitter.com/2/users/'+id+'/tweets?start_time='+timestamp, async function (error, response, body) {
+    public async getTweetFromUser(id: string, timestamp : any) {
+        const dateISO = new Date(timestamp.toDate()).toISOString();
+        console.log("clc");
+        console.log(dateISO);
+        await request('https://api.twitter.com/2/users/'+id+'/tweets?start_time='+dateISO, async function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log(body)
-                let message = {"success":true,"status_code":response.statusCode,"content":body}
-                return message
-            }else{
-                let message = {"success":false,"status_code":response.statusCode,"error_message":error.message}
-                return message
-            }}, { merge: true });
+                console.log("Success");
+                console.log(body);
+                return {"success": true, "status_code": response.statusCode, "content": body}
+            } else {
+                console.log("Empty");
+                return {"success": false, "status_code": response.statusCode, "error_message": "Null"}
+            }
+            }, { merge: true });
     }
 
     /**
