@@ -20,3 +20,4 @@ Running app
 
 - npm install 
 - npm start
+- test
