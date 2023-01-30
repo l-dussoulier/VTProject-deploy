@@ -42,12 +42,12 @@ twitterRouter.get('/allUsersTweet', async (req, res) => {
 
     if (users !== null) {
         for(let x in users){
-            console.log("Id " + users[x].id)
+            //console.log("Id " + users[x].id)
             const twitterController = await TwitterController.getInstance();
             const lastGetDate = await userController.getLastUpdateUser(users[x].id);
-            console.log("last get date " + lastGetDate);
+            //console.log("last get date " + lastGetDate);
             const tweet = await twitterController.getTweetFromUser(users[x].id, lastGetDate);
-            console.log(tweet);
+            console.log("Tweets" + tweet);
             await userController.updateLastGetDate(users[x].id);
         }
         res.status(200).json(users);

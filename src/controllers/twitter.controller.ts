@@ -32,10 +32,15 @@ export class TwitterController {
      * @returns
      */
     public async getTweetFromUser(id: string, timestamp : any) {
-        const dateISO = new Date(timestamp.toDate()).toISOString();
-        console.log("clc");
-        console.log(dateISO);
-        await request('https://api.twitter.com/2/users/'+id+'/tweets?start_time='+dateISO, async function (error, response, body) {
+        var options = {
+            url: 'https://api.twitter.com/2/users/'+id+'/tweets?start_time='+timestamp,
+            method: "get",
+            headers: {
+              "Authorization" : "Bearer AAAAAAAAAAAAAAAAAAAAAHMylQEAAAAAC7%2Fgvyxuw23AFM6kvUdfRxzBUk4%3DHB3q84a6Rl9kSPv07KKKlZpI1gCFlQG3IEBySOV8wTSxQa3Znr",
+            }
+        };
+
+        await request(options, async function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log("Success");
                 console.log(body);
@@ -45,7 +50,7 @@ export class TwitterController {
                 return {"success": false, "status_code": response.statusCode, "error_message": "Null"}
             }
             }, { merge: true });
-    }
+        }
 
     /**
      * Create new twitterPost object in database.
