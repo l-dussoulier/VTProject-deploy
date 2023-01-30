@@ -39,64 +39,19 @@ twitterRouter.get('/allTweet', async (req, res) => {
 twitterRouter.get('/allUsersTweet', async (req, res) => {
     const userController = await UserController.getInstance();
     const users = await userController.getAllUsers();
-
+    var tweets = []
     if (users !== null) {
         for(let x in users){
-            //console.log("Id " + users[x].id)
             const twitterController = await TwitterController.getInstance();
             const lastGetDate = await userController.getLastUpdateUser(users[x].id);
-            //console.log("last get date " + lastGetDate);
-            const tweet = await twitterController.getTweetFromUser(users[x].id, lastGetDate);
-            console.log("Tweets" + tweet);
+            const tweet = await twitterController.getTweetFromUser(users[x].id, "2023-01-24T20:36:15.775Z");
+            tweets.push({"user": users[x].id, "tweets": tweet})
             await userController.updateLastGetDate(users[x].id);
         }
-        res.status(200).json(users);
+        res.status(200).json(tweets);
     } else {
         res.status(204).end();
     }
-});
-
-
-/**
- * Get player information from his wallet address
- */
-/*twitterRouter.get('/allUsersTweets', async (req, res) => {
-    request('http://localhost:3000/user/allUsers', async function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        if (body !== null) {
-            let users = JSON.parse(body);
-            for (let x in users) {
-                var option = {
-                    method: "get",
-                    headers: {
-                        "Authorization" : `Bearer ` + token
-                    },
-                    url : 'https://api.twitter.com/2/users/'+ users[x].id+'/tweets?'
-                };
-                request(option, async function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    let tweet = JSON.parse(body);
-                    for (let y in tweet.data) {
-                        let userTweet = {
-                            "id" : users[x].id,
-                            "content" : tweet.data[y].text
-                        }
-                        console.log(userTweet)
-                        //console.log("Id : " + users[x].id)
-                        //console.log("Tweets : " + tweet.data[y].text)
-                    }
-                }else{
-                    res.status(400).end();
-                }
-                })
-            }
-        } else {
-            res.status(400).end();
-        }
-    }
-    res.status(400).end();
-    })
-    res.status(200).json("");
 });
 
 /**

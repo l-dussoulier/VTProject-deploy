@@ -24,8 +24,6 @@ export class UserController {
         this.user = User;
     }
 
-
-
     /**
      * Get all tweet
      * @returns

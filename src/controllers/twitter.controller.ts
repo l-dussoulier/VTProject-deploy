@@ -40,11 +40,21 @@ export class TwitterController {
             }
         };
 
-        await request(options, async function (error, response, body) {
+        await request(options, async function (error, response, body) {         
             if (!error && response.statusCode == 200) {
-                console.log("Success");
-                console.log(body);
-                return {"success": true, "status_code": response.statusCode, "content": body}
+                let tweets = []
+                let json = JSON.parse(body);
+                for(let x in json.data){
+                    tweets.push({"id":json.data[x].id,"text" : json.data[x].text})
+                        const username = id;
+                        const description = json.data[x].text;
+                        const date = new Date().toISOString();
+                        const note = 100;
+                    await this.create({
+                        username, description, date, note
+                    });
+                }   
+                return {"success": true, "status_code": response.statusCode, "content": tweets}
             } else {
                 console.log("Empty");
                 return {"success": false, "status_code": response.statusCode, "error_message": "Null"}
