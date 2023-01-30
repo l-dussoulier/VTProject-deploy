@@ -32,7 +32,7 @@ export class TwitterController {
      * @returns
      */
     public async getTweetFromUser(id: string, timestamp : any) {
-        var options = {
+        const options = {
             url: 'https://api.twitter.com/2/users/'+id+'/tweets?start_time='+timestamp,
             method: "get",
             headers: {

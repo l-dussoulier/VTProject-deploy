@@ -47,8 +47,12 @@ export class UserController {
     public async updateLastGetDate(user_id: string) {
         const db = getFirestore();
         const event = new Date();
-        // Récupérer l'id du document qui contient : user_id pour pouvoir update le champ lastGetDate dans la table Users
-        //db.collection("users").doc(this.getLastUpdateUser(user_id).toString()).update({lastGetDate: event.toISOString()});
+        const user = await this.user.where("id", "==", user_id).get();
+
+        const updateDate = await this.user.doc(user.docs[0].id);
+        await updateDate.set({
+            lastGetDate: event.toISOString()
+        }, { merge: true });
     }
 
      /**
@@ -58,7 +62,7 @@ export class UserController {
      */
     public getLastUpdateUser = async (user_id: string): Promise<string> => {
          const dba = getFirestore();
-         const result = await dba.collection("users").where("id", "==", user_id).get();
+         const result = await this.user.where("id", "==", user_id).get();
          return result.docs[0].data().lastGetDate;
      }
 
