@@ -6,8 +6,6 @@ config();
 
 const {
     PORT,
-    HOST,
-    HOST_URL,
     API_KEY,
     AUTH_DOMAIN,
     //PROJECT_ID,
@@ -29,12 +27,9 @@ const {
 } = process.env;
 
 assert(PORT,'PORT is required');
-assert(HOST,'HOST is required');
 
 export default {
     port: PORT,
-    host: HOST,
-    url: HOST_URL,
     firebaseConfig: {
         apiKey: API_KEY,
         authDomain: AUTH_DOMAIN,
